@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Gift</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e8f5e8, #f1f8e9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .gift-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+        }
+        h1 {
+            color: #4caf50;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .flowers {
+            font-size: 3em;
+            margin: 20px 0;
+        }
+        .flower {
+            display: inline-block;
+            margin: 10px;
+            animation: bloom 2s ease-in-out infinite alternate;
+        }
+        iframe {
+            display: none; /* Hidden, only audio plays */
+        }
+        @keyframes bloom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="gift-container">
+        <h1>Here's Your Gift! 🎁</h1>
+        <p>If love were a flower, you’d be the most beautiful one in my garden🥰🌷</p>
+        <div class="flowers">
+            <span class="flower">🌸</span>
+            <span class="flower">🌹</span>
+            <span class="flower">🌷</span>
+            <span class="flower">🌺</span>
+            <span class="flower">🌻</span>
+        </div>
+        <p>You are the quiet bloom my heart was waiting for🙈, turning every season into spring💖</p>
+    </div>
+
+    <iframe id="backgroundAudio" src="https://www.youtube.com/embed/lQv7-i-DbYk?autoplay=1&mute=0&loop=1&playlist=lQv7-i-DbYk&controls=0&showinfo=0&rel=0" allowfullscreen></iframe>
+
+    <script>
+        // Force play if autoplay is blocked
+        window.addEventListener('load', () => {
+            const iframe = document.getElementById('backgroundAudio');
+            // YouTube autoplay may be blocked; this is the best we can do
+        });
+    </script>
+</body>
+</html>
