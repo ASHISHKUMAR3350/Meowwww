@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            position: relative;
+        }
+        h1 {
+            color: #e91e63;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        button {
+            font-size: 1.2em;
+            padding: 15px 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        #yes {
+            background: #4caf50;
+            color: white;
+        }
+        #yes:hover {
+            background: #45a049;
+            transform: scale(1.1);
+        }
+        #no {
+            background: #f44336;
+            color: white;
+            position: relative;
+        }
+        #no:hover {
+            background: #d32f2f;
+        }
+        #claimGift {
+            background: #ff9800;
+            color: white;
+            display: none; /* Hidden initially */
+        }
+        #claimGift:hover {
+            background: #f57c00;
+            transform: scale(1.1);
+        }
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .heart {
+            position: absolute;
+            color: #e91e63;
+            font-size: 2em;
+            animation: heartFloat 4s linear forwards;
+        }
+        .balloon {
+            position: absolute;
+            font-size: 2em;
+            animation: balloonFloat 4s linear forwards;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff5722;
+            animation: confettiFall 3s linear forwards;
+        }
+        @keyframes heartFloat {
+            0% { transform: translateY(100vh); opacity: 1; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
+        @keyframes balloonFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        .hidden {
+            display: none;
+        }
+        .response {
+            font-size: 1.5em;
+            color: #e91e63;
+            margin-top: 20px;
+        }
+        iframe {
+            display: none; /* Hidden, only audio plays */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Will you be my Valentine?Chudail!!</h1>
+        <p>Click yes or no!</p>
+        <button id="yes">Yes</button>
+        <button id="no">No</button>
+        <div class="response hidden" id="response"></div>
+        <button id="claimGift">Claim Gift 🎁</button>
+        <div class="hearts" id="hearts"></div>
+    </div>
+<iframe id="backgroundAudio" src="https://www.youtube.com/embed/lQv7-i-DbYk?autoplay=1&mute=0&loop=1&playlist=lQv7-i-DbYk&controls=0&showinfo=0&rel=0" allowfullscreen></iframe>
+
+    <script>
+        const yesBtn = document.getElementById('yes');
+        const noBtn = document.getElementById('no');
+        const claimGiftBtn = document.getElementById('claimGift');
+        const response = document.getElementById('response');
+        const heartsContainer = document.getElementById('hearts');
+        let hasSaidYes = false; // Flag to track if "Yes" was clicked
+
+        // Function to create floating hearts (from bottom to top)
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + '%';
+            heartsContainer.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
+        }
+
+        // Function to create flying balloons
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+            balloon.innerHTML = '🎈';
+            balloon.style.left = Math.random() * 100 + '%';
+            balloon.style.color = ['#ff5722', '#2196f3', '#4caf50', '#ffeb3b'][Math.floor(Math.random() * 4)];
+            heartsContainer.appendChild(balloon);
+            setTimeout(() => {
+                balloon.remove();
+            }, 4000);
+        }
+
+        // Function to create confetti poppers
+        function createConfetti() {
+            for (let i = 0; i < 20; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = ['#ff5722', '#2196f3', '#4caf50', '#ffeb3b', '#e91e63'][Math.floor(Math.random() * 5)];
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                heartsContainer.appendChild(confetti);
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+        }
+
+        // Yes button click
+        yesBtn.addEventListener('click', () => {
+            if (hasSaidYes) return; // Prevent multiple clicks
+            hasSaidYes = true;
+            // Reset container to normal position
+            const container = document.querySelector('.container');
+            container.style.position = 'relative';
+            container.style.left = 'auto';
+            container.style.top = 'auto';
+            container.style.transform = 'none';
+            response.classList.remove('hidden');
+            response.innerHTML = 'Yaa...! Happy Valentine\'s Day Kittu!!!<br>💖<br>My heart is happiest when it’s with you.';
+            claimGiftBtn.style.display = 'inline-block'; // Show the claim gift button
+            // Create hearts
+            for (let i = 0; i < 10; i++) {
+                setTimeout(createHeart, i * 200);
+            }
+            // Create balloons
+            for (let i = 0; i < 5; i++) {
+                setTimeout(createBalloon, i * 500);
+            }
+            // Create confetti
+            createConfetti();
+        });
+
+        // Claim Gift button click - open new page
+        claimGiftBtn.addEventListener('click', () => {
+            window.open('gift.html', '_blank'); // Opens gift.html in a new tab/window
+        });
+
+        // No button hover - make it move away (only before "Yes")
+        noBtn.addEventListener('mouseover', () => {
+            if (hasSaidYes) return; // Do nothing if "Yes" was clicked
+            const container = document.querySelector('.container');
+            const rect = container.getBoundingClientRect();
+            const newX = Math.random() * (window.innerWidth - rect.width);
+            const newY = Math.random() * (window.innerHeight - rect.height);
+            container.style.position = 'absolute';
+            container.style.left = newX + 'px';
+            container.style.top = newY + 'px';
+            container.style.transition = 'all 0.5s ease';
+        });
+
+        // No button click - show prompt after "Yes"
+        noBtn.addEventListener('click', () => {
+            if (hasSaidYes) {
+                alert('ladle meowww....No no no no'); // Show prompt and do nothing else
+            }
+        });
+// Force play if autoplay is blocked
+        window.addEventListener('load', () => {
+            const iframe = document.getElementById('backgroundAudio');
+            // YouTube autoplay may be blocked; this is the best we can do
+        });
+        // Initial hearts animation (from bottom to top)
+        setInterval(createHeart, 1000);
+    </script>
+</body>
+</html>
