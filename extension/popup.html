@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meow AI Agent</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="app__header">
+      <h1>Meow AI Agent</h1>
+      <p>Text likho, jawab padh bhi sakte ho ya sun bhi sakte ho.</p>
+    </header>
+
+    <section id="chat" class="chat" aria-live="polite"></section>
+
+    <section class="controls">
+      <label for="mode">Response mode</label>
+      <select id="mode">
+        <option value="text">Text only</option>
+        <option value="voice">Voice only</option>
+        <option value="both" selected>Text + Voice</option>
+      </select>
+
+      <div class="input-row">
+        <input id="prompt" type="text" placeholder="Type your message..." />
+        <button id="send" type="button">Send</button>
+      </div>
+
+      <div class="input-row">
+        <button id="mic" type="button">🎤 Speak</button>
+        <button id="stopVoice" type="button">🔇 Stop voice</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="popup.js"></script>
+</body>
+</html>
